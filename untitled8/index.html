@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>RadioShack Egypt – Your Favorite Tech, One Click Away</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+            --bg-main: #050506;
+            --bg-alt: #0b0b0d;
+            --accent: #e30613; /* RadioShack Red */
+            --accent-soft: #ff4b5c;
+            --text-main: #f5f5f5;
+            --text-muted: #b3b3b3;
+            --card-bg: #111115;
+            --border-soft: #26262b;
+            --radius-lg: 999px;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --shadow-soft: 0 24px 60px rgba(0,0,0,0.7);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+            background: radial-gradient(circle at top, #16161c 0%, #050506 55%, #000 100%);
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 80px;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(18px);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.4));
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo-mark {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 26px;
+            font-size: 13px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 13px;
+        }
+
+        .pill {
+            border-radius: var(--radius-lg);
+            padding: 8px 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .pill-cta {
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        /* HERO */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.15fr 1fr;
+            gap: 40px;
+            align-items: center;
+            padding: 72px 0 64px;
+        }
+
+        .tagline-strip {
+            background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+            padding: 10px 18px;
+            border-radius: var(--radius-lg);
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            display: inline-flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .tagline-strip span:last-child {
+            opacity: 0.75;
+        }
+
+        .tagline-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        .hero-title {
+            font-size: 52px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            line-height: 1.1;
+            margin-bottom: 18px;
+        }
+
+        .hero-title span {
+            display: block;
+        }
+
+        .hero-sub {
+            max-width: 430px;
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+
+        .hero-sub strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .hero-cta-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            border-radius: var(--radius-lg);
+            padding: 13px 26px;
+            font-size: 13px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            border: 1px solid transparent;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: radial-gradient(circle at top left, var(--accent-soft), var(--accent));
+            box-shadow: 0 12px 30px rgba(227,6,19,0.45);
+        }
+
+        .btn-secondary {
+            border-color: rgba(255,255,255,0.18);
+            color: var(--text-muted);
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 28px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .hero-meta span strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .hero-image-wrap {
+            position: relative;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            background: radial-gradient(circle at center, #2a2a30 0, #050506 70%);
+        }
+
+        .hero-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-label {
+            position: absolute;
+            bottom: 18px;
+            left: 22px;
+            padding: 8px 14px;
+            border-radius: var(--radius-lg);
+            background: rgba(0,0,0,0.65);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .hero-label strong {
+            color: #fff;
+            margin-left: 6px;
+        }
+
+        /* SECTIONS / HEADERS */
+        .section {
+            margin-top: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 18px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .section-title {
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+        }
+
+        .section-sub {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* PRODUCTS */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-soft);
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .product-thumb {
+            height: 220px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #1b1b1f, #26262e);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+        }
+
+        .product-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .product-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .product-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .price {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .chip {
+            font-size: 10px;
+            border-radius: 999px;
+            padding: 4px 10px;
+            border: 1px solid rgba(255,255,255,0.12);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+
+        .btn-mini {
+            margin-top: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            padding: 9px 0;
+            border-radius: 999px;
+            background: rgba(227,6,19,0.08);
+            border: 1px solid rgba(227,6,19,0.6);
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* EGYPT STRIP */
+        .eg-strip {
+            margin-top: 32px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(90deg, rgba(227,6,19,0.18), rgba(0,0,0,0.1));
+            border: 1px solid rgba(227,6,19,0.4);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .eg-strip strong {
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            font-size: 11px;
+        }
+
+        .eg-points {
+            display: flex;
+            gap: 22px;
+            font-size: 12px;
+            flex-wrap: wrap;
+        }
+
+        .eg-points span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .eg-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.18);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--accent-soft);
+        }
+
+        /* CATEGORIES */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .category-card {
+            background: linear-gradient(145deg, #101015, #191922);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 12px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .category-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 999px;
+            margin: 0 auto 10px;
+            background: radial-gradient(circle at top, rgba(227,6,19,0.7), rgba(5,5,6,1));
+        }
+
+        .category-card span {
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 10px;
+        }
+
+        .category-card:hover {
+            border-color: rgba(227,6,19,0.7);
+        }
+
+        /* FEATURED DEAL */
+        .featured {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .featured-card {
+            background: radial-gradient(circle at top left, rgba(227,6,19,0.2), #050506);
+            border-radius: 26px;
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 24px 24px 22px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .featured-tag {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--accent-soft);
+            margin-bottom: 10px;
+        }
+
+        .featured-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .featured-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+            max-width: 420px;
+        }
+
+        .featured-specs {
+            display: flex;
+            gap: 18px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .featured-specs span strong {
+            display: block;
+            color: #fff;
+        }
+
+        .featured-price {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .featured-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .featured-img {
+            height: 320px;
+            border-radius: 22px;
+            border: 1px solid rgba(255,255,255,0.14);
+            background: linear-gradient(135deg, #18181f, #23232d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            overflow: hidden;
+        }
+
+        .featured-img img{
+            width: 100%;
+            height: 100%;
+            border-radius: 22px;
+            object-fit: cover;
+        }
+
+        /* REVIEWS */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 10px;
+        }
+
+        .review-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-soft);
+            padding: 14px 14px 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .stars {
+            color: #ffb800;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .reviewer {
+            margin-top: 10px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #ffffff;
+        }
+
+        /* NEWSLETTER / APP */
+        .newsletter {
+            margin-top: 36px;
+            padding: 20px 22px;
+            border-radius: 22px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: linear-gradient(90deg, #101018, #151520);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter h3 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .newsletter p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .newsletter input {
+            background: #050506;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 10px 14px;
+            font-size: 13px;
+            color: #fff;
+            min-width: 230px;
+        }
+
+        .newsletter input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .newsletter-note {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        /* SIMPLE RESPONSIVE TWEAKS */
+        @media (max-width: 960px) {
+            .page {
+                padding: 0 18px 60px;
+            }
+
+            .hero,
+            .featured {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                gap: 28px;
+                padding-top: 48px;
+            }
+
+            .hero-visual {
+                order: -1; /* hero image on top for tablets/phones if you want */
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, minmax(0,1fr));
+            }
+
+            .product-thumb {
+                height: 200px;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(3, minmax(0,1fr));
+            }
+
+            .reviews-grid {
+                grid-template-columns: repeat(2, minmax(0,1fr));
+            }
+
+            .featured-img {
+                height: 260px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .navbar {
+                padding: 14px 16px;
+            }
+
+            .hero {
+                padding-top: 32px;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .page {
+                padding: 0 14px 50px;
+            }
+
+            .products-grid,
+            .categories-grid,
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-thumb {
+                height: 190px;
+            }
+
+            .eg-strip {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .hero-cta-row {
+                flex-wrap: wrap;
+            }
+
+            .featured-img {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <div class="nav-left">
+        <div class="logo-mark">R</div>
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Deals</a>
+            <a href="#">Categories</a>
+            <a href="#">Support</a>
+        </nav>
+    </div>
+    <div class="nav-right">
+        <div class="pill">
+            <span class="pill-dot"></span>
+            <span>Stores in Egypt</span>
+        </div>
+        <div class="pill pill-cta">
+            Sign In
+        </div>
+    </div>
+</div>
+
+<main class="page">
+    <!-- HERO -->
+    <section class="hero">
+        <div>
+            <div class="tagline-strip">
+                <span class="tagline-dot"></span>
+                <span>Radioshack USA, Tailored for Egypt</span>
+                <span>Official Online Store</span>
+            </div>
+            <h1 class="hero-title">
+                <span>Your Favorite Tech,</span>
+                <span>One Click Away.</span>
+            </h1>
+            <p class="hero-sub">
+                Shop original electronics from <strong>RadioShack USA</strong> with
+                fast delivery across Egypt, local warranty, and secure payment options.
+            </p>
+            <div class="hero-cta-row">
+                <button class="btn btn-primary">Shop Best Sellers</button>
+                <button class="btn btn-secondary">Browse Categories</button>
+            </div>
+            <div class="hero-meta">
+                <span><strong>24h</strong> Cairo & Giza delivery</span>
+                <span><strong>100%</strong> Genuine products</span>
+                <span><strong>Cash</strong> on delivery available</span>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="hero-image-wrap">
+                <img src="hero-image.png" alt="Headphones, controller and power bank in red glow" />
+                <div class="hero-label">
+                    CURATED FOR <strong>EGYPTIAN GAMERS & CREATORS</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BEST SELLERS -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">Top picks this week</h2>
+            <p class="section-sub">Handpicked from RadioShack USA’s best sellers – now shipped to Egypt.</p>
+        </div>
+        <div class="products-grid">
+            <article class="product-card">
+                <div class="product-thumb">
+                    <img src="jbl.png" alt="JBL Tune 510BT Wireless Headphones" />
+                </div>
+                <div class="product-name">JBL Tune 510BT Wireless Headphones</div>
+                <div class="product-meta">40h battery · Bluetooth 5.0 · Foldable</div>
+                <div class="product-bottom">
+                    <span class="price">1,199 EGP</span>
+                    <span class="chip">Best Seller</span>
+                </div>
+                <button class="btn-mini">Add to Cart</button>
+            </article>
+
+            <article class="product-card">
+                <div class="product-thumb">
+                    <img src="anker.png" alt="Anker PowerCore 20,000mAh" />
+                </div>
+                <div class="product-name">Anker PowerCore 20,000mAh</div>
+                <div class="product-meta">Fast charge · Dual USB · Compact</div>
+                <div class="product-bottom">
+                    <span class="price">1,599 EGP</span>
+                    <span class="chip">New Arrival</span>
+                </div>
+                <button class="btn-mini">Add to Cart</button>
+            </article>
+
+            <article class="product-card">
+                <div class="product-thumb">
+                    <img src="mouse.png" alt="Logitech G102 Lightsync Gaming Mouse" />
+                </div>
+                <div class="product-name">Logitech G102 Lightsync Gaming Mouse</div>
+                <div class="product-meta">8K DPI · RGB · Lightweight</div>
+                <div class="product-bottom">
+                    <span class="price">899 EGP</span>
+                    <span class="chip">For Gamers</span>
+                </div>
+                <button class="btn-mini">Add to Cart</button>
+            </article>
+
+            <article class="product-card">
+                <div class="product-thumb">
+                    <img src="speaker.png" alt="Portable Bluetooth Speaker" />
+                </div>
+                <div class="product-name">Portable Bluetooth Speaker</div>
+                <div class="product-meta">Water-resistant · Deep bass · Compact</div>
+                <div class="product-bottom">
+                    <span class="price">999 EGP</span>
+                    <span class="chip">Hot Deal</span>
+                </div>
+                <button class="btn-mini">Add to Cart</button>
+            </article>
+        </div>
+    </section>
+
+    <!-- EGYPT STRIP -->
+    <section class="eg-strip">
+        <div>
+            <strong>Built for Egypt</strong>
+        </div>
+        <div class="eg-points">
+            <span><span class="eg-icon">£</span>Cash on delivery & installments</span>
+            <span><span class="eg-icon">🚚</span>Nationwide delivery</span>
+            <span><span class="eg-icon">ع</span>Arabic customer support</span>
+        </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">Shop by category</h2>
+            <p class="section-sub">Jump straight into the tech you love.</p>
+        </div>
+        <div class="categories-grid">
+            <div class="category-card">
+                <div class="category-icon"></div>
+                <span>Audio</span>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"></div>
+                <span>Gaming</span>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"></div>
+                <span>Mobile</span>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"></div>
+                <span>Smart Home</span>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"></div>
+                <span>Cables</span>
+            </div>
+            <div class="category-card">
+                <div class="category-icon"></div>
+                <span>PC Gear</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED DEAL -->
+    <section class="featured">
+        <div class="featured-card">
+            <div class="featured-tag">Limited time • Radioshack Egypt Exclusive</div>
+            <h2 class="featured-title">Gaming Starter Kit – Headset + Mouse + Mousepad</h2>
+            <p class="featured-text">
+                A complete setup designed for Egyptian players who want smooth aim, clear comms, and zero lag.
+                Curated from RadioShack USA’s best-performing gaming gear.
+            </p>
+            <div class="featured-specs">
+                <span><strong>3-IN-1</strong>Bundle</span>
+                <span><strong>2-YEAR</strong>Warranty</span>
+                <span><strong>COD</strong>Available</span>
+            </div>
+            <div class="featured-price">2,999 EGP</div>
+            <div class="featured-note">Price includes local warranty & taxes.</div>
+            <button class="btn btn-primary">Add bundle to cart</button>
+        </div>
+        <div class="featured-img">
+            <img src="bundlee.png" alt="Gaming bundle: headset, mouse and mousepad" />
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="section">
+        <div class="section-header">
+            <h2 class="section-title">What customers in Egypt say</h2>
+            <p class="section-sub">Real reviews from RadioShack Egypt shoppers.</p>
+        </div>
+        <div class="reviews-grid">
+            <article class="review-card">
+                <div class="stars">★★★★★</div>
+                “The delivery was super fast and everything was original with warranty. Finally, a tech store I can trust online.”
+                <div class="reviewer">Ahmed · Cairo</div>
+            </article>
+            <article class="review-card">
+                <div class="stars">★★★★★</div>
+                “I found the same Logitech mouse I saw on the US site, but shipped straight to Egypt. Smooth checkout, great packaging.”
+                <div class="reviewer">Mariam · Alexandria</div>
+            </article>
+            <article class="review-card">
+                <div class="stars">★★★★☆</div>
+                “Cash on delivery made it easy. Customer support even called to confirm compatibility with my console.”
+                <div class="reviewer">Omar · Giza</div>
+            </article>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER / APP -->
+    <section class="newsletter">
+        <div>
+            <h3>Get early access to drops & flash deals</h3>
+            <p>Be the first to know when new RadioShack USA products land in Egypt.</p>
+        </div>
+        <div>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email" />
+                <button class="btn btn-primary" type="submit">Join the list</button>
+            </form>
+            <div class="newsletter-note">
+                No spam. Just tech launches, deals, and curated recommendations.
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div>© 2025 RadioShack Egypt. All rights reserved.</div>
+        <div class="footer-links">
+            <a href="#">Help Center</a>
+            <a href="#">Returns</a>
+            <a href="#">Warranty</a>
+            <a href="#">Privacy</a>
+        </div>
+    </footer>
+</main>
+</body>
+</html>
